@@ -1,0 +1,40 @@
+/* Base styling for the entire page */
+body {
+  position: relative;
+  background-color: black;       /* Dark background for cinematic feel */
+  color: white;                  /* White text for contrast */
+  font-family: sans-serif;       /* Clean, modern font */
+  text-align: center;            /* Center-align all content */
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the thumbnail gallery */
+.gallery {
+  display: flex;                 /* Arrange thumbnails in a row */
+  flex-wrap: wrap;              /* Allow wrapping to multiple lines */
+  justify-content: center;      /* Center the gallery horizontally */
+  gap: 20px;                    /* Space between thumbnails */
+  padding: 20px;                /* Padding around the gallery */
+}
+
+/* Styling for each thumbnail image */
+.thumb {
+  width: 437px;                 /* Fixed width for consistent layout */
+  border: 2px solid white;      /* White border for visibility */
+  cursor: pointer;              /* Pointer cursor on hover */
+  opacity: 0.6;                 /* Slightly faded by default */
+}
+
+/* Highlighted thumbnail (currently selected) */
+.thumb.active {
+  opacity: 1;                   /* Fully visible */
+  border-color: yellow;         /* Yellow border to indicate selection */
+}
+
+/* Styling for the video player */
+video {
+  width: 100%;                  /* Full width of the container */
+  height: auto;                 /* Maintain aspect ratio */
+  background-color: black;      /* Match page background */
+}

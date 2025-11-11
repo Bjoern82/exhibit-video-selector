@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Page title shown in the browser tab -->
+  <title>Video Terminal – Page 3</title>
+
+  <!-- Link to external CSS file for layout and styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="initGallery()">
+  
+  <!-- Thumbnail gallery for Page 3 -->
+  <div class="gallery">
+    <!-- Navigation thumbnail: links back to Page 2 -->
+    <img src="thumbs/page3_1.png" class="thumb nav-link" data-href="page2.html">
+
+    <!-- Thumbnails for local video files (videos 16–22) -->
+    <img src="thumbs/video16.png" class="thumb" data-video="videos/video16.mp4">
+    <img src="thumbs/video17.png" class="thumb" data-video="videos/video17.mp4">
+    <img src="thumbs/video18.png" class="thumb" data-video="videos/video18.mp4">
+    <img src="thumbs/video19.png" class="thumb" data-video="videos/video19.mp4">
+    <img src="thumbs/video20.png" class="thumb" data-video="videos/video20.mp4">
+    <img src="thumbs/video21.png" class="thumb" data-video="videos/video21.mp4">
+    <img src="thumbs/video22.png" class="thumb" data-video="videos/video22.mp4">
+
+    <!-- Navigation thumbnail: links back to Page 1 (index.html) -->
+    <img src="thumbs/page3_2.png" class="thumb nav-link" data-href="index.html">
+  </div>
+
+  <!-- Hidden video player, shown when a video is selected -->
+  <video id="player" controls autoplay onended="back()" style="display:none;">
+    <!-- Source element will be updated dynamically via JavaScript -->
+    <source id="source" src="" type="video/mp4">
+  </video>
+
+  <!-- JavaScript file that handles gallery logic and video playback -->
+  <script src="script.js"></script>
+</body>
+</html>
