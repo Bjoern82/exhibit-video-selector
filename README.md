@@ -22,10 +22,25 @@ This project is designed to run on common desktop platforms and has been success
 - **Windows 11 Version 25H2** using **Firefox in kiosk mode**
 - **Linux Mint 22.2 "Zara"** (based on Ubuntu 24.04 LTS) using **Chromium in kiosk mode**
 
-> ⚠️ Kiosk mode must be manually activated on each system, but can be automated:
+> ⚠️ Kiosk mode must be manually activated on each system, but can also be automated:
 > - **Windows**: via a `.bat` script that launches Firefox or Chromium in fullscreen
-> - **Linux**: via a shell script (`.sh`) or systemd service that starts Chromium with kiosk flags  
-> Setup must be configured by a system administrator for each deployment.
+> - **Linux**: via a `.desktop` file or a systemd service that starts Chromium with kiosk flags  
+> Setup should be configured by a system administrator for each deployment.
+
+## 🗂️ Linux Kiosk File
+
+This repository already includes a prepared Linux desktop file:  
+`Start Kiosk_Linux.desktop`
+
+- Purpose: launches Chromium in kiosk mode with the local HTML start page.  
+- Location: included in the project root directory.  
+- Usage: copy the file to your Linux system and place it in  
+  `~/.local/share/applications/` (manual start) or  
+  `~/.config/autostart/` (automatic start on login).  
+- Make it executable:
+  ```bash
+  chmod +x Start\ Kiosk_Linux.desktop
+  ```
 
 ---
 
@@ -50,6 +65,8 @@ Each page includes thumbnails for video playback and navigation links to adjacen
 - `Left/Right/Up/Down` → Navigate thumbnails
 - `A` → Play selected video
 - `B` → Stop video and return to gallery
+- `Select` → Pause/play video
+- `Start`+`A`+`B` → Exit Kiosk-Mode
 
 ---
 
@@ -61,7 +78,8 @@ museum-video-terminal/
 ├── page2.html 
 ├── page3.html 
 ├── style.css 
-├── script.js 
+├── script.js
+├── Start Kiosk_Linux.desktop 
 ├── thumbs/ # Thumbnail images (PNG format) 
 │ ├── video1.png 
 │ ├── video2.png 
@@ -114,17 +132,18 @@ To add your own content:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/museum-video-terminal.git
+   ```
 2. Place your video files in the videos/ folder and thumbnails in thumbs/.
 3. Open index.html in a browser or kiosk environment.
 
 ---
 
-License
+## 📜 License
 
 This project is open-source under the MIT License. You are free to use, modify, and distribute it with attribution.
 
 ---
 
-Credits
+## 🙌 Credits
 
 Created by Björn Bruckmann for use in public installations and educational environments. Feel free to fork, adapt, and contribute!
