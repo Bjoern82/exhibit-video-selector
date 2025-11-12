@@ -41,12 +41,13 @@ This repository already includes a prepared Linux desktop file:
   ```bash
   chmod +x Start\ Kiosk_Linux.desktop
   ```
+```markdown
 ## ⚠️ Important Note for the Linux Desktop File
 
-The included file `Start Kiosk_Linux.desktop` contains a fixed path to the local HTML start page:
+The included file `Start Kiosk_Linux.desktop` contains the placeholder **USER** in the path:
+
 ```ini
-Exec=chromium --kiosk file:///home/mue-museum/Videoterminal/index.html
-```
+Exec=chromium --kiosk file:///home/USER/Videoterminal/index.html
 
 ---
 
