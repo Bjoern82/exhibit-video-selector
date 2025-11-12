@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Startseite (Kiosk)
+Comment=opens my local HTML-File in Kiosk-Mode
+Exec=chromium --kiosk file:///home/USER/Videoterminal/index.html
+Icon=chromium
+Terminal=false
+Type=Application
+Categories=Utility;
