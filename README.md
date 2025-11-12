@@ -131,7 +131,7 @@ To add your own content:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/museum-video-terminal.git
+   git clone https://github.com/Bjoern82/exhibit-video-selector.git
    ```
 2. Place your video files in the videos/ folder and thumbnails in thumbs/.
 3. Open index.html in a browser or kiosk environment.
