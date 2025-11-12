@@ -75,6 +75,14 @@ Each page includes thumbnails for video playback and navigation links to adjacen
 - `Select` → Pause/play video
 - `Start`+`A`+`B` → Exit Kiosk-Mode
 
+## 🎮 Hardware – Gamepad
+
+This project has been tested with a **USB NES-style gamepad** (retro design).  
+It features the classic layout: D‑Pad, Select, Start, A, and B buttons.  
+Other USB controllers may also work, but button mappings can differ.
+
+> Note: If you use a different controller, you may need to adjust the button mapping in `script.js`.
+
 ---
 
 ## 📁 Folder Structure
