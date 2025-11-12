@@ -1,17 +1,27 @@
 // Index of the currently selected thumbnail
+// Index des aktuell ausgewählten Thumbnails
 let selected = 0;
 
 // Array to hold all thumbnail elements
+// Array zum Speichern aller Thumbnail-Elemente
 let thumbs = [];
 
 // Flag to track whether a video is currently playing
+// Flag, ob gerade ein Video abgespielt wird
 let playing = false;
 
+// Mapping table for gamepad buttons
+// Mapping-Tabelle für Gamepad-Tasten
+const buttonMap = {
+  play: 1,    // A
+  back: 0,    // B
+  pause: 8,   // Select
+  start: 9    // Start
+};
+
 /**
- * Initializes the gallery:
- * - Collects all thumbnails
- * - Highlights the selected one
- * - Adds click listeners to each thumbnail
+ * Initializes the gallery
+ * Initialisiert die Galerie
  */
 function initGallery() {
   thumbs = Array.from(document.querySelectorAll('.thumb'));
@@ -28,6 +38,7 @@ function initGallery() {
 
 /**
  * Highlights the currently selected thumbnail
+ * Hebt das aktuell ausgewählte Thumbnail hervor
  */
 function highlight() {
   thumbs.forEach((t, i) => t.classList.toggle('active', i === selected));
@@ -35,11 +46,11 @@ function highlight() {
 
 /**
  * Plays the selected video or navigates to another page
+ * Spielt das ausgewählte Video ab oder navigiert zu einer anderen Seite
  */
 function playSelected() {
   const thumb = thumbs[selected];
 
-  // If it's a navigation link, redirect to the target page
   if (thumb.classList.contains("nav-link")) {
     const target = thumb.getAttribute("data-href");
     if (target) {
@@ -48,7 +59,6 @@ function playSelected() {
     return;
   }
 
-  // Otherwise, play the associated video
   const file = thumb.getAttribute("data-video");
   const player = document.getElementById("player");
   const source = document.getElementById("source");
@@ -62,17 +72,18 @@ function playSelected() {
   player.style.display = "block";
   document.querySelector(".gallery").style.display = "none";
   player.load();
+  player.play();
   playing = true;
 }
 
 /**
  * Stops the video and returns to the gallery view
- * Triggered by ESC key, gamepad button, or video end
+ * Stoppt das Video und kehrt zur Galerie zurück
  */
 function back() {
   const player = document.getElementById("player");
-  player.pause();            // Stop playback
-  player.currentTime = 0;    // Reset to beginning
+  player.pause();
+  player.currentTime = 0;
 
   player.style.display = "none";
   document.querySelector(".gallery").style.display = "flex";
@@ -80,10 +91,8 @@ function back() {
 }
 
 /**
- * Keyboard navigation:
- * - Arrow keys to move selection
- * - Enter to play
- * - Escape to return
+ * Keyboard navigation
+ * Tastatur-Navigation
  */
 window.addEventListener("keydown", (e) => {
   if (!thumbs.length) return;
@@ -108,42 +117,78 @@ window.addEventListener("keydown", (e) => {
 });
 
 /**
- * Gamepad navigation:
- * - Left/right/up/down to move selection
- * - Button 0 (A) to play
- * - Button 1 (B) to return
+ * Gamepad navigation
+ * Gamepad-Navigation
  */
 window.addEventListener("gamepadconnected", () => {
   let lastMove = 0;
 
   setInterval(() => {
     const gp = navigator.getGamepads()[0];
-    if (!gp || playing) return;
+    if (!gp) return;
 
+    // Debug output: show pressed buttons in console
+    // Debug-Ausgabe: zeigt gedrückte Buttons in der Konsole
+    gp.buttons.forEach((btn, i) => {
+      if (btn.pressed) {
+        console.log("Button pressed:", i);
+      }
+    });
+
+    // Exit Kiosk Mode: Start + A + B
+    if (
+      gp.buttons[buttonMap.start]?.pressed &&  // Start
+      gp.buttons[buttonMap.play]?.pressed &&   // A
+      gp.buttons[buttonMap.back]?.pressed      // B
+    ) {
+      console.log("Exit Kiosk Mode triggered");
+      window.close(); // oder eigene exitKioskMode()-Funktion
+    }
+
+    // If video is playing: allow back and pause
+    if (playing) {
+      if (gp.buttons[buttonMap.back]?.pressed) {
+        back();
+      }
+      if (gp.buttons[buttonMap.pause]?.pressed) {
+        const player = document.getElementById("player");
+        if (player.paused) {
+          player.play();
+        } else {
+          player.pause();
+        }
+      }
+      return;
+    }
+
+    // Navigation in gallery
     const now = Date.now();
-    if (now - lastMove < 300) return;
+    if (now - lastMove >= 300) {
+      const horizontal = gp.axes[0];
+      const vertical = gp.axes[1];
 
-    const horizontal = gp.axes[0];
-    const vertical = gp.axes[1];
+      if (horizontal < -0.5 || vertical < -0.5) {
+        selected = (selected - 1 + thumbs.length) % thumbs.length;
+        highlight();
+        lastMove = now;
+      }
 
-    if (horizontal < -0.5 || vertical < -0.5) {
-      selected = (selected - 1 + thumbs.length) % thumbs.length;
-      highlight();
-      lastMove = now;
+      if (horizontal > 0.5 || vertical > 0.5) {
+        selected = (selected + 1) % thumbs.length;
+        highlight();
+        lastMove = now;
+      }
     }
 
-    if (horizontal > 0.5 || vertical > 0.5) {
-      selected = (selected + 1) % thumbs.length;
-      highlight();
-      lastMove = now;
-    }
-
-    if (gp.buttons[0].pressed) {
+    // Play
+    if (gp.buttons[buttonMap.play]?.pressed) {
       playSelected();
     }
 
-    if (gp.buttons[1].pressed) {
+    // Back
+    if (gp.buttons[buttonMap.back]?.pressed) {
       back();
     }
+
   }, 100);
 });
