@@ -1,40 +1,50 @@
+/* Basis-Layout für die gesamte Seite */
 /* Base styling for the entire page */
 body {
   position: relative;
-  background-color: black;       /* Dark background for cinematic feel */
-  color: white;                  /* White text for contrast */
-  font-family: sans-serif;       /* Clean, modern font */
-  text-align: center;            /* Center-align all content */
+  background-color: black;       /* Dunkler Hintergrund für Kino-Atmosphäre / Dark background for cinematic feel */
+  color: white;                  /* Weißer Text für Kontrast / White text for contrast */
+  font-family: sans-serif;       /* Klare, moderne Schrift / Clean, modern font */
+  text-align: center;            /* Zentrierte Ausrichtung / Center-align all content */
   margin: 0;
   padding: 0;
 }
 
+/* Container für die Thumbnail-Galerie */
 /* Container for the thumbnail gallery */
 .gallery {
-  display: flex;                 /* Arrange thumbnails in a row */
-  flex-wrap: wrap;              /* Allow wrapping to multiple lines */
-  justify-content: center;      /* Center the gallery horizontally */
-  gap: 20px;                    /* Space between thumbnails */
-  padding: 20px;                /* Padding around the gallery */
+  display: flex;                 /* Thumbnails in einer Reihe anordnen / Arrange thumbnails in a row */
+  flex-wrap: wrap;              /* Zeilenumbruch erlauben / Allow wrapping to multiple lines */
+  justify-content: center;      /* Galerie horizontal zentrieren / Center the gallery horizontally */
+  gap: 20px;                    /* Abstand zwischen Thumbnails / Space between thumbnails */
+  padding: 20px;                /* Innenabstand um die Galerie / Padding around the gallery */
 }
 
+/* Gestaltung jedes einzelnen Thumbnails */
 /* Styling for each thumbnail image */
 .thumb {
-  width: 437px;                 /* Fixed width for consistent layout */
-  border: 2px solid white;      /* White border for visibility */
-  cursor: pointer;              /* Pointer cursor on hover */
-  opacity: 0.6;                 /* Slightly faded by default */
+  width: 437px;                 /* Feste Breite für gleichmäßiges Layout / Fixed width for consistent layout */
+  border: 2px solid white;      /* Weißer Rahmen zur Sichtbarkeit / White border for visibility */
+  cursor: pointer;              /* Mauszeiger als Hand / Pointer cursor on hover */
+  opacity: 0.6;                 /* Leicht ausgeblendet im Normalzustand / Slightly faded by default */
 }
 
+/* Hervorgehobenes Thumbnail (aktuelle Auswahl) */
 /* Highlighted thumbnail (currently selected) */
 .thumb.active {
-  opacity: 1;                   /* Fully visible */
-  border-color: yellow;         /* Yellow border to indicate selection */
+  opacity: 1;                   /* Voll sichtbar / Fully visible */
+  border-color: yellow;         /* Gelber Rahmen zur Markierung / Yellow border to indicate selection */
 }
 
-/* Styling for the video player */
+/* Gestaltung des Videoplayers im Vollbild */
+/* Styling for the fullscreen video player */
 video {
-  width: 100%;                  /* Full width of the container */
-  height: auto;                 /* Maintain aspect ratio */
-  background-color: black;      /* Match page background */
+  position: fixed;              /* Fixiert am Bildschirmrand / Fixed to screen edges */
+  top: 0;
+  left: 0;
+  width: 100vw;                 /* Volle Bildschirmbreite / Full viewport width */
+  height: 100vh;                /* Volle Bildschirmhöhe / Full viewport height */
+  object-fit: cover;            /* Video proportional füllen / Scale video to cover area */
+  background-color: black;      /* Hintergrund bei Ladefehler / Background fallback */
+  z-index: 1;                   /* Über der Galerie / Above gallery layer */
 }
